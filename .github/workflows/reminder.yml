@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  schedule:
+    - cron: '0 13 * * 6'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create comment
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: 1
+        body: |
+          Reminder: A day has passed.
+          - [Check CLA status](https://check-python-cla.herokuapp.com/)
+          - If good to go, [submit PR](https://github.com/python/peps/compare/master...ferdnyc:patch-1?expand=1)
+          
+          (Comment addded using [create-or-update-comment][1])
+          
+          [1]: https://github.com/peter-evans/create-or-update-comment
+        reaction-type: '+1'
